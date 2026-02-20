@@ -1,7 +1,7 @@
 const CACHE_NAME = 'pwa-v1';
 const ASSETS = [
-    '/',
-    '/index.html'
+    './',
+    './index.html'
 ];
 
 // Встановлення
