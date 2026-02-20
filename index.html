@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Test</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: #f4f4f4;
+        }
+
+        .status {
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Мій PWA Тест</h1>
+    <div id="status-bomb" class="status">Перевірка зв'язку...</div>
+
+    <script>
+        // Реєстрація воркера
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('✅ SW зареєстровано!', reg))
+                .catch(err => console.error('❌ Помилка:', err));
+        }
+
+        // Візуалізація статусу
+        function updateStatus() {
+            const el = document.getElementById('status-bomb');
+            if (navigator.onLine) {
+                el.textContent = "Ви в МЕРЕЖІ (Online)";
+                el.className = "status online";
+            } else {
+                el.textContent = "Ви ОФЛАЙН (Кеш працює!)";
+                el.className = "status offline";
+            }
+        }
+        window.addEventListener('online', updateStatus);
+        window.addEventListener('offline', updateStatus);
+        updateStatus();
+    </script>
+</body>
+
+</html>
